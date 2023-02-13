@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.Scanner;
-
 import com.microsoft.graph.models.User;
 import com.microsoft.graph.requests.UserCollectionPage;
 // </ImportSnippet>
@@ -23,7 +22,8 @@ public class App {
         try {
             oAuthProperties.load(App.class.getResourceAsStream("oAuth.properties"));
         } catch (IOException e) {
-            System.out.println("Unable to read OAuth configuration. Make sure you have a properly formatted oAuth.properties file. See README for details.");
+            System.out.println(
+                    "Unable to read OAuth configuration. Make sure you have a properly formatted oAuth.properties file. See README for details.");
             return;
         }
 
@@ -49,7 +49,7 @@ public class App {
             input.nextLine();
 
             // Process user choice
-            switch(choice) {
+            switch (choice) {
                 case 0:
                     // Exit the program
                     System.out.println("Goodbye...");
@@ -79,8 +79,7 @@ public class App {
     private static void initializeGraph(Properties properties) {
         try {
             Graph.initializeGraphForAppOnlyAuth(properties);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error initializing Graph for user auth");
             System.out.println(e.getMessage());
         }
@@ -105,7 +104,7 @@ public class App {
             final UserCollectionPage users = Graph.getUsers();
 
             // Output each user's details
-            for (User user: users.getCurrentPage()) {
+            for (User user : users.getCurrentPage()) {
                 System.out.println("User: " + user.displayName);
                 System.out.println("  ID: " + user.id);
                 System.out.println("  Email: " + user.mail);
@@ -123,7 +122,8 @@ public class App {
     // <MakeGraphCallSnippet>
     private static void makeGraphCall() {
         try {
-            Graph.makeGraphCall();
+            // Graph.makeGraphCall();
+            Graph.getGroups();
         } catch (Exception e) {
             System.out.println("Error making Graph call");
             System.out.println(e.getMessage());
